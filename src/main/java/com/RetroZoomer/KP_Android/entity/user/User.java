@@ -3,15 +3,18 @@ package com.RetroZoomer.KP_Android.entity.user;
 import com.RetroZoomer.KP_Android.entity.user.role.Role;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Data
 @Table(name = "\"user\"")
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -20,7 +23,7 @@ public class User implements Serializable {
     private boolean isGM;
 
     @Column(nullable = false, unique = true)
-    private String login;
+    private String username;
     @Column(nullable = false)
     private String password;
 
@@ -31,19 +34,46 @@ public class User implements Serializable {
     private Set<Role> roles = new HashSet<>();
 
 
-    public User(String login, String password) {
-        this.login = login;
+
+    public User(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
-    public User(Long id, String login, String password, Set<Role> roles) {
+    public User(Long id, String username, String password, Set<Role> roles) {
         this.id = id;
-        this.login = login;
+        this.username = username;
         this.password = password;
-        this.roles = roles;
+//        this.roles = roles;
     }
 
     public User() {
 
+    }
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

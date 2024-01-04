@@ -6,12 +6,15 @@ import com.RetroZoomer.KP_Android.entity.user.role.Role;
 import com.RetroZoomer.KP_Android.repository.RoleRep;
 import com.RetroZoomer.KP_Android.repository.UserRep;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     @Autowired
     UserRep userRepository;
     @Autowired
@@ -33,7 +36,7 @@ public class UserService {
         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         roles.add(userRole);
-        user.setRoles(roles);
+//        user.setRoles(roles);
         //user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 
@@ -54,5 +57,14 @@ public class UserService {
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return user;
     }
 }
