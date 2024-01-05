@@ -2,6 +2,7 @@ package com.RetroZoomer.KP_Android.controller;
 
 import com.RetroZoomer.KP_Android.entity.user.User;
 import com.RetroZoomer.KP_Android.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-//@Tag(name = "User", description = "The User API")
+@Tag(name = "User", description = "The User API")
 public class UserController {
 
     @Autowired

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -19,6 +20,7 @@ public class UserService implements UserDetailsService {
     UserRep userRepository;
     @Autowired
     RoleRep roleRepository;
+    PasswordEncoder passwordEncoder;
 
     public User findUserById(Long userId) {
         Optional<User> userFromDb = userRepository.findById(userId);
@@ -36,20 +38,20 @@ public class UserService implements UserDetailsService {
         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         roles.add(userRole);
-//        user.setRoles(roles);
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(roles);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 
         return user;
     }
 
     public User updateUser(User user) {
-        //User userFromDB = userRepository.findByUsername(user.getUsername());
+        User userFromDB = userRepository.findByUsername(user.getUsername());
 
-        //user.setRoles(userFromDB.getRoles());
-        //if (!Objects.equals(user.getPassword(), userFromDB.getPassword())) {
-            //user.setPassword(passwordEncoder.encode(user.getPassword()));
-        //}
+        user.setRoles(userFromDB.getRoles());
+        if (!Objects.equals(user.getPassword(), userFromDB.getPassword())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         userRepository.save(user);
 
         return user;
