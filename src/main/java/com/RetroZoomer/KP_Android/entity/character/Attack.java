@@ -1,6 +1,6 @@
 package com.RetroZoomer.KP_Android.entity.character;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;

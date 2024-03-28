@@ -1,11 +1,8 @@
 package com.RetroZoomer.KP_Android.entity.character;
 
-import jakarta.persistence.*;
 import lombok.Data;
-
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Entity
@@ -65,24 +62,24 @@ public class Character implements Serializable {
     private byte stealth;
     private byte survival;
     // атаки
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(	name = "character_attack",
-            joinColumns = @JoinColumn(name = "character_id"),
-            inverseJoinColumns = @JoinColumn(name = "attack_id"))
-    private Set<Attack> attacks = new HashSet<>();
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(	name = "character_attack",
+//            joinColumns = @JoinColumn(name = "character_id"),
+//            inverseJoinColumns = @JoinColumn(name = "attack_id"))
+//    private Set<Attack> attacks = new HashSet<>();
     private String attacksAndSpells;
     private String skillsAndAbilities;
     // заклинания
     private String spellCharacteristic;
-    private byte count_1L;
-    private byte count_2L;
-    private byte count_3L;
-    private byte count_4L;
-    private byte count_5L;
-    private byte count_6L;
-    private byte count_7L;
-    private byte count_8L;
-    private byte count_9L;
+//    private byte count_1L;
+//    private byte count_2L;
+//    private byte count_3L;
+//    private byte count_4L;
+//    private byte count_5L;
+//    private byte count_6L;
+//    private byte count_7L;
+//    private byte count_8L;
+//    private byte count_9L;
 
     private String spell_1L;
     private String spell_2L;
@@ -105,5 +102,9 @@ public class Character implements Serializable {
     private String background;
     private String personality;
     // заметки
-    private String notes;
+    private String notes_1;
+    private String notes_2;
+    private String notes_3;
+    private String notes_4;
+    private String notes_5;
 }

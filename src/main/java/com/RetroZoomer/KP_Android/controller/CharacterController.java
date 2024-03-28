@@ -6,13 +6,19 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
-@Controller
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RestController
 @RequestMapping("/character")
+@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 @Tag(name = "Character", description = "The Character API")
 public class CharacterController {
     @Autowired
@@ -20,9 +26,23 @@ public class CharacterController {
 
     @GetMapping("/all")
     public ResponseEntity<List<Character>> getAllCharacters() {
-        List<Character> characters = characterService.findAllCharacters();
-        return new ResponseEntity<>(characters, HttpStatus.OK);
+        try {
+            List<Character> characters = characterService.findAllCharacters();
+            return new ResponseEntity<>(characters, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
+//    @GetMapping("/allUsersCharacters")
+//    public ResponseEntity<List<Character>> getAllUsersCharactersCharacters(UserDetails userDetails) {
+//        try {
+//            List<Character> characters = characterService.findAllUsersCharacters(userDetails.getUsername());
+//            return new ResponseEntity<>(characters, HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
     @GetMapping("/find/{id}")
     public ResponseEntity<Character> getCharacterById(@PathVariable("id") Long id)  {
@@ -45,7 +65,6 @@ public class CharacterController {
     }
 
     @PutMapping("/update")
-    //@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Character> updateCharacter(@RequestBody Character character)  {
         try {
             Character updateCharacter = characterService.updateCharacter(character);

@@ -1,9 +1,7 @@
 package com.RetroZoomer.KP_Android.entity.user.role;
 
-import com.RetroZoomer.KP_Android.entity.user.role.ERole;
-import jakarta.persistence.*;
 import lombok.Data;
-
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Data

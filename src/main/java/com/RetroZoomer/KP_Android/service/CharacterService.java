@@ -3,6 +3,7 @@ package com.RetroZoomer.KP_Android.service;
 import com.RetroZoomer.KP_Android.entity.character.Character;
 import com.RetroZoomer.KP_Android.repository.CharacterRep;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,10 @@ public class CharacterService {
     public List<Character> findAllCharacters() {
         return characterRep.findAll();
     }
+
+//    public List<Character> findAllUsersCharacters(String username) {
+//        return characterRep.findAllCharactersByUsername(username);
+//    }
 
     public Character saveCharacter(Character character) {
         characterRep.save(character);

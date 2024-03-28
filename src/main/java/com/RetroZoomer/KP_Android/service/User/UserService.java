@@ -1,10 +1,10 @@
-package com.RetroZoomer.KP_Android.service;
+package com.RetroZoomer.KP_Android.service.User;
 
 import com.RetroZoomer.KP_Android.entity.user.User;
 import com.RetroZoomer.KP_Android.entity.user.role.ERole;
 import com.RetroZoomer.KP_Android.entity.user.role.Role;
-import com.RetroZoomer.KP_Android.repository.RoleRep;
-import com.RetroZoomer.KP_Android.repository.UserRep;
+import com.RetroZoomer.KP_Android.repository.RoleRepository;
+import com.RetroZoomer.KP_Android.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,9 +17,9 @@ import java.util.*;
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
-    UserRep userRepository;
+    UserRepository userRepository;
     @Autowired
-    RoleRep roleRepository;
+    RoleRepository roleRepository;
     PasswordEncoder passwordEncoder;
 
     public User findUserById(Long userId) {
@@ -33,16 +33,23 @@ public class UserService implements UserDetailsService {
     }
 
     public User saveUser(User user) {
-        Set<Role> roles = new HashSet<>();
+        try {
+            if (userRepository.existsByUsername(user.getUsername())) {
+                throw new RuntimeException("Error: This username is busy");
+            }
 
-        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        roles.add(userRole);
-        user.setRoles(roles);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+            Set<Role> roles = new HashSet<>();
+            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
+            user.setRoles(roles);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
 
-        return user;
+            return user;
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public User updateUser(User user) {
