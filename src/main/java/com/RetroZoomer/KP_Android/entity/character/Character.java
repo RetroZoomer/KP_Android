@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 @Entity
 @Data
+@Table(name = "`character`")
 public class Character implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +18,7 @@ public class Character implements Serializable {
     private String race;
     private String nameClass;
     private String img;
+    private int level;
     private int AC; // класс брони
     private int XP;
     private int speed;
@@ -43,24 +45,24 @@ public class Character implements Serializable {
     private boolean wisdomSav;
     private boolean charismaSav;
     // умения
-    private byte acrobatics;
-    private byte animalHandling;
-    private byte arcana;
-    private byte athletics;
-    private byte deception;
-    private byte history;
-    private byte insight;
-    private byte intimidation;
-    private byte investigation;
-    private byte medicine;
-    private byte nature;
-    private byte perception;
-    private byte performance;
-    private byte persuasion;
-    private byte religion;
-    private byte sleightOfHand;
-    private byte stealth;
-    private byte survival;
+    private boolean acrobatics;
+    private boolean animalHandling;
+    private boolean arcana;
+    private boolean athletics;
+    private boolean deception;
+    private boolean history;
+    private boolean insight;
+    private boolean intimidation;
+    private boolean investigation;
+    private boolean medicine;
+    private boolean nature;
+    private boolean perception;
+    private boolean performance;
+    private boolean persuasion;
+    private boolean religion;
+    private boolean sleightOfHand;
+    private boolean stealth;
+    private boolean survival; // bite
     // атаки
 //    @ManyToMany(fetch = FetchType.EAGER)
 //    @JoinTable(	name = "character_attack",

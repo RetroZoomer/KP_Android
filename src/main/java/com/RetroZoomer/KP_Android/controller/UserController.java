@@ -14,7 +14,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/user")
-@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 @Tag(name = "User", description = "The User API")
 public class UserController {
 
