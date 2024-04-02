@@ -68,7 +68,7 @@ public class CharacterController {
         }
     }
 
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<Character> updateCharacter(@RequestBody Character character)  {
         try {
             Character updateCharacter = characterService.updateCharacter(character);
