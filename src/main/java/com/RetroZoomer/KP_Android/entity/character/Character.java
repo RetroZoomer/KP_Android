@@ -3,8 +3,6 @@ package com.RetroZoomer.KP_Android.entity.character;
 import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
-
-
 @Entity
 @Data
 @Table(name = "`character`")

@@ -1,5 +1,6 @@
 package com.RetroZoomer.KP_Android.controller;
 
+import antlr.collections.List;
 import com.RetroZoomer.KP_Android.entity.character.Character;
 import com.RetroZoomer.KP_Android.service.CharacterService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -8,8 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.*;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
