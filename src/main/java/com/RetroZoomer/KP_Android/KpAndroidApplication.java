@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class KpAndroidApplication {
-//kdfdsjfslkdjfdsfsdfdf
 	public static void main(String[] args) {
 		SpringApplication.run(KpAndroidApplication.class, args);
 	}
